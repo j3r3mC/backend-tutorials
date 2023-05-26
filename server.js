@@ -25,10 +25,18 @@ db.sequelize.sync()
     });
 
 
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+});
+
+
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to J3r3mC application." });
 });
+
+
+require("./app/routes/tutorial.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
