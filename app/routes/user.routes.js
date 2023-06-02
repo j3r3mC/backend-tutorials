@@ -3,7 +3,7 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new user
+    // Create a new User
     router.post("/", users.create);
 
     // Retrieve all users
@@ -21,5 +21,5 @@ module.exports = app => {
     // Delete all users
     router.delete("/", users.deleteAll);
 
-    app.use('/api/users', router);
+    app.use('/api/auth', router);
 };

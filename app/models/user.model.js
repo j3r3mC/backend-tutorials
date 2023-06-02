@@ -1,3 +1,4 @@
+const { users } = require(".");
 
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {

@@ -3,19 +3,14 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    if (!req.body.name) {
-        res.status(400).send({
-            message: "Name can not be empty!"
-        });
-        return;
-    }
-
+ 
+    
     const user = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password 
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm,
     };
-
     User.create(user)
         .then(data => {
             res.send(data);
