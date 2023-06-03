@@ -1,16 +1,18 @@
 const db = require("../models");
+var  bcrypt  = require ( "bcryptjs" ) ; 
+
 const User = db.users;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
- 
     
     const user = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm,
+        password: bcrypt.hashSync(req.body.password,10),
+        passwordConfirm:bcrypt.hashSync(req.body.password,10),
     };
+
     User.create(user)
         .then(data => {
             res.send(data);
@@ -24,8 +26,8 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    const email = req.query.email;
+    var condition = email ? { email: { [Op.like]: `%${email}%` } } : null;
 
     User.findAll({ where: condition })
         .then(data => {
@@ -124,8 +126,8 @@ exports.deleteAll = (req, res) => {
 };
 
 // Find all published Users
-exports.findAllPublished = (req, res) => {
-    User.findAll({ where: { name : !null } })
+exports.findByEmail = (req, res) => {
+    User.findAll({ where: { email : !null } })
         .then(data => {
             res.send(data);
         })

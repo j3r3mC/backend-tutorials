@@ -28,14 +28,14 @@ db.sequelize.sync()
         console.log("Failed to sync db: " + err.message);
     });
 
-// for purge db
-/*db.sequelize.sync({ force: true }).then(() => {
+// for drop all tables and resync db
+db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
-});*/
+});
 
 
 // simple route
-app.get("/login", (req, res) =>{
+app.use("/tutorials", (req, res) =>{
     res.send({
         token : "test123" 
     });
