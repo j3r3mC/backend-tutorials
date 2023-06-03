@@ -5,13 +5,13 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    
+   
     const user = {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password,10),
         passwordConfirm:bcrypt.hashSync(req.body.password,10),
-    };
+    };    
 
     User.create(user)
         .then(data => {
