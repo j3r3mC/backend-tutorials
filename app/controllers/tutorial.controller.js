@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Title can not be empty!"
         });
         return;
     }
@@ -112,8 +112,7 @@ exports.delete = (req, res) => {
                     message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
                 });
             }
-        })
-        .catch(err => {
+        }).catch(err => {
             res.status(500).send({
                 message: "Could not delete Tutorial with id=" + id
             });
