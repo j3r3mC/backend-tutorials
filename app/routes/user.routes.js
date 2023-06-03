@@ -9,7 +9,7 @@ module.exports = app => {
     // Retrieve all users
     router.get("/", users.findAll);
 
-    // Retrieve a single User with id
+    // Retrieve a single User with id & email
     router.get("/:id", users.findOne);
 
     // Update a User with id
