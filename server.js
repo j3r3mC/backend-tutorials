@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require('path');
-
+require("dotenv").config();
 const app = express();
 
 var corsOptions = {
@@ -9,6 +9,7 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -29,16 +30,14 @@ db.sequelize.sync()
     });
 
 // for drop all tables and resync db
-db.sequelize.sync({ force: true }).then(() => {
+/*db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
-});
-
-
-// simple route
-app.use("/tutorials", (req, res) =>{
-    res.send({
-        token : "test123" 
-    });
+});*/
+app.use('/login', (req, res) => {
+  let token = `${process.env.TOKEN_KEY}`
+  res.send({
+    token: 'test123'
+  });
 });
 
 require("./app/routes/tutorial.routes")(app);

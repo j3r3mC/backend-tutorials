@@ -1,13 +1,12 @@
 const db = require("../models");
 var  bcrypt  = require ( "bcryptjs" ) ;
-const jwt = require("jsonwebtoken"); 
-
-const TOKEN_KEY = "azerty"
+const jwt = require("jsonwebtoken");
+const env = require("dotenv").config();
 const User = db.users;
 const Op = db.Sequelize.Op;
 
 
-exports.create = async(req, res) => {
+exports.create = (req, res) => {
     var email = req.body.email.toLowerCase();
    
     const user = {
@@ -16,20 +15,7 @@ exports.create = async(req, res) => {
         password: bcrypt.hashSync(req.body.password,10),
         passwordConfirm:bcrypt.hashSync(req.body.password,10),
     };
-    const oldUser = await User.findOne(user.id);
-    if(oldUser){
-        res.status(409).send("Email already exist, please sign in !")
-    }
-    const token = jwt.sign(
-        { user_id: user.id, email },
-            TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
-      // save user token
-      user.token = token;
-      
+    
 
     User.create(user)
         .then(data => {
